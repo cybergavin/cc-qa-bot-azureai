@@ -2,6 +2,12 @@
 
 This repository contains a Retrieval-Augmented Generation (RAG) system for indexing and querying Confluence wiki pages using Azure AI and Qdrant vector database.
 
+## Quick Demo
+
+
+https://github.com/user-attachments/assets/822ffc48-0d65-4c26-9d66-f995b7f7947d
+
+
 ## Features
 - **Confluence Page Extraction**: Retrieves and processes pages from a Confluence space.
 - **Text Chunking**: Splits content into manageable chunks for efficient embedding.
@@ -68,7 +74,7 @@ Send a POST request to retrieve answers from indexed documents:
 curl -X POST "http://localhost:8000/ask" -H "Content-Type: application/json" \
 -d '{"query": "What is the company policy on remote work?", "model": "<model deployment name>"}'
 ```
-**NOTE:** Replace <model deployment name> in the above `curl` command.
+**NOTE:** Replace &lt;model deployment name&gt; in the above `curl` command.
 
 ## Configuration
 Edit `config.toml` to update parameters like:
