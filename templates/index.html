@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #121212;
+            --glass-bg: rgba(30, 30, 30, 0.8);
+            --text-color: #E0E0E0;
+            --accent-color: #00FFD1;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --button-bg: linear-gradient(135deg, #00FFD1, #009688);
+            --button-hover: linear-gradient(135deg, #00C1A1, #00796B);
+            --shadow-color: rgba(0, 255, 209, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: var(--glass-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            width: 85%;
+            max-width: 850px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            border: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            font-size: 18px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            backdrop-filter: blur(5px);
+            transition: 0.3s ease;
+        }
+
+        select {
+            appearance: none;
+            cursor: pointer;
+            background: rgb(184, 232, 238);
+            color: black;
+            border: 2px solid var(--border-color);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 18px;
+            outline: none;
+            backdrop-filter: blur(5px);
+            transition: 0.3s ease;
+        }
+
+        select:focus {
+            background: rgb(184, 232, 238);
+            color: black;
+        }
+
+        /* Add arrow indicator */
+        select::-ms-expand {
+            background: rgb(184, 232, 238);
+            color: black;
+        }
+        select::after {
+            content: "▼";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            background: rgb(184, 232, 238);
+            color: black;
+        }
+
+        /* Hover & Focus effects */
+        select:hover {
+            border-color: var(--accent-color);
+            color: black;
+            box-shadow: 0 0 10px var(--shadow-color);
+        }
+
+
+        .markdown-response {
+            flex-grow: 1;
+            min-height: 250px;
+            overflow-y: auto;
+            text-align: left;
+            padding: 15px;
+            color: black;
+            background: rgb(184, 232, 238);
+            border: 2px solid var(--border-color);
+            width: 100%;
+            margin: 10px 0;
+            border-radius: 10px;
+            font-size: 18px;
+            outline: none;
+            backdrop-filter: blur(5px);
+            transition: 0.3s ease;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            background: var(--button-bg);
+            color: #121212;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            font-weight: bold;
+            margin: 0 5px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+
+        button:hover {
+            background: var(--button-hover);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px var(--shadow-color);
+        }
+
+        .token-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            border-top: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .token-info span {
+            color: var(--accent-color);
+        }
+
+        a#data-source {
+            color: var(--accent-color); /* Default link color */
+        }
+
+        a#data-source:hover {
+            color: var(--shadow-color); /* Change color when hovered */
+            text-decoration: underline; /* Add underline on hover */
+        }
+
+        a#data-source:visited {
+            color: var(--accent-color); /* Change color for visited links */
+        }
+
+        /* Copy Icon Styles (Directly clickable) */
+        #copy-icon {
+            font-size: 18px; /* Icon size */
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            padding: 4px;
+            border-radius: 50%; /* Circular icon */
+            display: inline-block;
+        }
+
+        #copy-icon:hover {
+            background: rgba(0, 255, 209, 0.1); /* Hover effect */
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Support Agent</h1>
+        <select id="model">
+            <option value="" disabled selected>Select a model</option>
+            {% for model in models %}
+                <option value="{{ model.deployment_name }}">{{ model.display_name }}</option>
+            {% endfor %}
+        </select>        
+        <input type="text" id="query" placeholder="Enter your question..." required>
+        <div class="button-group">
+            <button onclick="askQuestion()">Ask</button>
+            <button onclick="resetFields()">Reset</button>
+        </div>
+        <div id="response" class="markdown-response"></div>
+        <!-- Token Info Section -->
+        <div id="token-info" class="token-info" style="display: none;">
+            <span>Input Tokens: <span id="input-tokens">0</span></span>
+            <span>Output Tokens: <span id="output-tokens">0</span></span>
+            <span>API Cost: $<span id="api-cost">0.00</span></span>
+            <span><span id="data-source"></span></span>
+            <span id="copy-icon" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i>
+            </span>
+        </div>
+    </div>
+    <script>
+        async function askQuestion() {
+            let query = document.getElementById("query").value;
+            let responseBox = document.getElementById("response");
+            let selectedModel = document.getElementById("model").value;
+            let tokenInfo = document.getElementById("token-info");
+            let inputTokens = document.getElementById("input-tokens");
+            let outputTokens = document.getElementById("output-tokens");
+            let apiCost = document.getElementById("api-cost");
+            let dataSource = document.getElementById("data-source");
+            
+            if (query.trim() === "") {
+                alert("Please enter a question!");
+                return;
+            }
+            responseBox.innerHTML = "<em>Thinking...</em>";
+            tokenInfo.style.display = "none";  // Hide token info initially
+            try {
+                const response = await fetch("/ask", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        query: query.trim(),
+                        model: selectedModel
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+                const data = await response.json();
+                responseBox.innerHTML = marked.parse(data.answer || "No response received");
+                // Display token info and cost
+                inputTokens.textContent = data.input_tokens || 0;
+                outputTokens.textContent = data.output_tokens || 0;
+                const totalCost = (parseFloat(data.input_tokens_cost) || 0) + (parseFloat(data.output_tokens_cost) || 0);
+
+                // Display total cost: If it's effectively zero, show "$0", otherwise display rounded value
+                apiCost.textContent = totalCost < 0.00005 ? "0" : totalCost.toFixed(4);
+
+                dataSource.innerHTML = `<a id="data-source" href="${data.data_source}" target="_blank" rel="noopener noreferrer">Data Source</a>`;
+                
+                // Show the token info section
+                tokenInfo.style.display = "flex";
+            } catch (error) {
+                responseBox.innerHTML = `<strong>Error:</strong> ${error.message}`;
+            }
+        }
+
+        function resetFields() {
+            document.getElementById("query").value = "";
+            document.getElementById("response").innerHTML = "";
+            document.getElementById("model").value = ""; 
+            document.getElementById("token-info").style.display = "none";
+        }
+
+        // Function to copy the markdown content to clipboard
+        function copyToClipboard() {
+            let responseBox = document.getElementById("response");
+            let range = document.createRange();
+            range.selectNode(responseBox);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            try {
+                document.execCommand('copy');
+                alert("Response copied to clipboard!");
+            } catch (error) {
+                alert("Failed to copy text: " + error);
+            }
+
+            window.getSelection().removeAllRanges(); // Clear the selection
+        }
+    </script>
+</body>
+</html>

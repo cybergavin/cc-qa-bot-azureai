@@ -1,0 +1,45 @@
+[confluence]
+wiki_url = "👉 Enter Wiki URL. For example, https://mywiki.atlassian.net/wiki"
+username = "👉Enter username"
+space = "👉Enter space key"
+page_limit = 100
+retry_delay = 2
+
+[chunking]
+max_tokens_per_chunk = 400
+characters_per_token = 4
+chunk_overlap = 100
+
+[vectordb.qdrant]
+host = "localhost"
+collection = "confluence_docs"
+embedding_dimensions = 1536
+vector_distance = "Cosine"
+
+[azure-ai]
+endpoint = "👉Enter Azure AI endpoint. For example, https://abc-m6x5xqy6-eastus2.services.ai.azure.com/models"
+embedding_model = "👉Enter embedding model deployment name"
+
+[azure-ai.models]
+max_tokens = 1000
+temperature = 0.1
+top_p = 0.1
+top_k = 5
+
+
+# Cost of Azure AI models
+# Format of table name : [azure-ai.model.<model deployment name>]
+
+[azure-ai.model.👉cg-phi-4]
+display_name = "Phi-4"
+deployment_name = "👉cg-phi-4"
+token_cost_batch = 1000
+input_token_cost = 0.000125
+output_token_cost = 0.0005
+
+[azure-ai.model.👉cg-deepseek-r1]
+display_name = "DeepSeek-R1"
+deployment_name = "👉cg-deepseek-r1"
+token_cost_batch = 1000
+input_token_cost = 0
+output_token_cost = 0
